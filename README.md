@@ -1,4 +1,4 @@
-# nero
+# neo-aero
 Recently I've become interested in a UI design concept I term "Neo Aero" -
 modern takes on the so-called Frutiger Aero aesthetic.
 
