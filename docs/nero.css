@@ -28,6 +28,8 @@
 	--tint-90: rgba(0, 0, 0, 0.9);
 
 	--energy-1: #3bfcff;
+	--energy-2: #0051ff;
+
 	--energy-1-10: color-mix(in srgb, var(--energy-1) 10%, transparent);
 	--energy-1-20: color-mix(in srgb, var(--energy-1) 20%, transparent);
 	--energy-1-30: color-mix(in srgb, var(--energy-1) 30%, transparent);
@@ -37,7 +39,7 @@
 	--energy-1-70: color-mix(in srgb, var(--energy-1) 70%, transparent);
 	--energy-1-80: color-mix(in srgb, var(--energy-1) 80%, transparent);
 	--energy-1-90: color-mix(in srgb, var(--energy-1) 90%, transparent);
-	--energy-2: #0051ff;
+	
 	--energy-2-10: color-mix(in srgb, var(--energy-2) 10%, transparent);
 	--energy-2-20: color-mix(in srgb, var(--energy-2) 20%, transparent);
 	--energy-2-30: color-mix(in srgb, var(--energy-2) 30%, transparent);
@@ -47,6 +49,16 @@
 	--energy-2-70: color-mix(in srgb, var(--energy-2) 70%, transparent);
 	--energy-2-80: color-mix(in srgb, var(--energy-2) 80%, transparent);
 	--energy-2-90: color-mix(in srgb, var(--energy-2) 90%, transparent);
+}
+
+:root {
+	--energy-hue: 200deg;
+	--energy-hue-spread: 20deg;
+	--energy-colour: 100%;
+	--energy-lightness: 55%;
+	--energy-contrast: 10%;
+	--energy-1: hsl(calc(var(--energy-hue) - var(--energy-hue-spread)), var(--energy-colour), calc(var(--energy-lightness) + var(--energy-contrast)));
+	--energy-2: hsl(calc(var(--energy-hue) + var(--energy-hue-spread)), var(--energy-colour), calc(var(--energy-lightness) - var(--energy-contrast)));
 }
 
 body {
@@ -103,11 +115,25 @@ body {
 }
 
 button {
-	background: var(--wash-60);
+	--self-background: var(--wash-40);
+	background: var(--self-background);
 	color: inherit;
-
+	box-shadow: inset 0 -0.5px 2px var(--tint-10), inset 0 0.5px 2px var(--wash-10), 0 0 1px var(--tint-10);
+	
 	@media (prefers-color-scheme: dark) {
-		background: var(--wash-10);
+		--self-background: var(--wash-10);
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		display: block;
+		inset: 4px;
+		border-radius: inherit;
+		background: var(--self-background);
+		background-repeat: no-repeat;		
+		filter: blur(6px);
+		z-index: -1;
 	}
 
 	&.primary {
@@ -122,32 +148,24 @@ button {
 			inset: 0;
 			translate: 0 4px;
 			border-radius: inherit;
-			background: var(--energy-2-20);
+			background: var(--energy-2-10);
 			background-repeat: no-repeat;
-			border: 1px solid var(--tint-40);
+			border: 1px solid var(--tint-20);
 			filter: blur(4px);
 			z-index: -2;
 
-			transition: translate 0.2s ease, filter 0.2s ease, background 0.2s ease;
+			transition: translate 0.2s ease, filter 0.2s ease, background 0.2s ease, border 0.2s ease;
 		}
 
 		&:hover::before {
 			background: var(--energy-1-20);
+			border: 1px solid var(--tint-40);
 			translate: 0 2px;
 			filter: blur(2px);
 		}
 
 		&::after {
-			content: '';
-			position: absolute;
-			display: block;
-			inset: 4px;
-			border-radius: inherit;
-			background: linear-gradient(to top, var(--energy-1), var(--energy-2));
-			background-repeat: no-repeat;			
-			filter: blur(4px);
-			opacity: 0.6;
-			z-index: -1;
+			background: linear-gradient(to top, var(--energy-1-60), var(--energy-2-60));
 		}
 	}
 	
